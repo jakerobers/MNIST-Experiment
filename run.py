@@ -3,6 +3,7 @@ import struct
 from mnist import MNIST
 from collections import deque
 from sklearn.svm import SVC
+from sklearn.naive_bayes import GaussianNB
 
 def shape_data(features, labels, num_of_images):
   features = deque(features)
@@ -22,9 +23,10 @@ mndata = MNIST('./')
 loaded_images, loaded_labels = mndata.load_training()
 loaded_tests, loaded_actuals = mndata.load_testing()
 
-features, labels = shape_data(loaded_images, loaded_labels, 60000)
-test_features, test_labels = shape_data(loaded_tests, loaded_actuals, 2000)
+features, labels = shape_data(loaded_images, loaded_labels, 10000)
+test_features, test_labels = shape_data(loaded_tests, loaded_actuals, 500)
 
-clf = SVC(kernel='linear', degree=9)
+clf = SVC(kernel='poly', degree=2)
+#clf = GaussianNB()
 clf.fit(np.array(features), np.array(labels))
 print(clf.score(np.array(test_features), np.array(test_labels)))

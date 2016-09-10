@@ -56,6 +56,12 @@ class MNIST(object):
       image_data = array("B", file.read())
 
     images = []
+
+    if (size == 60000):
+      size = 10000
+    elif (size == 10000):
+      size = 500
+
     for i in range(size):
       images.append([0] * rows * cols)
 
